@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myway.poss.mapper.TourMapper" >
+  <resultMap id="BaseResultMap" type="com.myway.poss.pojo.Tour" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="subname" property="subname" jdbcType="VARCHAR" />
+    <result column="taocan" property="taocan" jdbcType="VARCHAR" />
+    <result column="during" property="during" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="REAL" />
+    <result column="comment" property="comment" jdbcType="INTEGER" />
+    <result column="deal" property="deal" jdbcType="INTEGER" />
+    <result column="satisfactory" property="satisfactory" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.myway.poss.pojo.TourWithBLOBs" extends="BaseResultMap" >
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+    <result column="route_include" property="routeInclude" jdbcType="LONGVARCHAR" />
+    <result column="route_content" property="routeContent" jdbcType="LONGVARCHAR" />
+    <result column="notice" property="notice" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, product_id, name, subname, taocan, during, price, picture, remark, comment, deal, 
+    satisfactory
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduction, route_include, route_content, notice
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.myway.poss.pojo.TourExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tour
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myway.poss.pojo.TourExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tour
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tour
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tour
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myway.poss.pojo.TourExample" >
+    delete from tour
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myway.poss.pojo.TourWithBLOBs" >
+    insert into tour (id, product_id, name, 
+      subname, taocan, during, 
+      price, picture, remark, 
+      comment, deal, satisfactory, 
+      introduction, route_include, route_content, 
+      notice)
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{subname,jdbcType=VARCHAR}, #{taocan,jdbcType=VARCHAR}, #{during,jdbcType=VARCHAR}, 
+      #{price,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}, #{remark,jdbcType=REAL}, 
+      #{comment,jdbcType=INTEGER}, #{deal,jdbcType=INTEGER}, #{satisfactory,jdbcType=INTEGER}, 
+      #{introduction,jdbcType=LONGVARCHAR}, #{routeInclude,jdbcType=LONGVARCHAR}, #{routeContent,jdbcType=LONGVARCHAR}, 
+      #{notice,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.myway.poss.pojo.TourWithBLOBs" >
+    insert into tour
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="subname != null" >
+        subname,
+      </if>
+      <if test="taocan != null" >
+        taocan,
+      </if>
+      <if test="during != null" >
+        during,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deal != null" >
+        deal,
+      </if>
+      <if test="satisfactory != null" >
+        satisfactory,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="routeInclude != null" >
+        route_include,
+      </if>
+      <if test="routeContent != null" >
+        route_content,
+      </if>
+      <if test="notice != null" >
+        notice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subname != null" >
+        #{subname,jdbcType=VARCHAR},
+      </if>
+      <if test="taocan != null" >
+        #{taocan,jdbcType=VARCHAR},
+      </if>
+      <if test="during != null" >
+        #{during,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=REAL},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=INTEGER},
+      </if>
+      <if test="deal != null" >
+        #{deal,jdbcType=INTEGER},
+      </if>
+      <if test="satisfactory != null" >
+        #{satisfactory,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="routeInclude != null" >
+        #{routeInclude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="routeContent != null" >
+        #{routeContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="notice != null" >
+        #{notice,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myway.poss.pojo.TourExample" resultType="java.lang.Integer" >
+    select count(*) from tour
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tour
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subname != null" >
+        subname = #{record.subname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taocan != null" >
+        taocan = #{record.taocan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.during != null" >
+        during = #{record.during,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=INTEGER},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=REAL},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=INTEGER},
+      </if>
+      <if test="record.deal != null" >
+        deal = #{record.deal,jdbcType=INTEGER},
+      </if>
+      <if test="record.satisfactory != null" >
+        satisfactory = #{record.satisfactory,jdbcType=INTEGER},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.routeInclude != null" >
+        route_include = #{record.routeInclude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.routeContent != null" >
+        route_content = #{record.routeContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.notice != null" >
+        notice = #{record.notice,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tour
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      subname = #{record.subname,jdbcType=VARCHAR},
+      taocan = #{record.taocan,jdbcType=VARCHAR},
+      during = #{record.during,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=INTEGER},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=REAL},
+      comment = #{record.comment,jdbcType=INTEGER},
+      deal = #{record.deal,jdbcType=INTEGER},
+      satisfactory = #{record.satisfactory,jdbcType=INTEGER},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      route_include = #{record.routeInclude,jdbcType=LONGVARCHAR},
+      route_content = #{record.routeContent,jdbcType=LONGVARCHAR},
+      notice = #{record.notice,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tour
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      subname = #{record.subname,jdbcType=VARCHAR},
+      taocan = #{record.taocan,jdbcType=VARCHAR},
+      during = #{record.during,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=INTEGER},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=REAL},
+      comment = #{record.comment,jdbcType=INTEGER},
+      deal = #{record.deal,jdbcType=INTEGER},
+      satisfactory = #{record.satisfactory,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myway.poss.pojo.TourWithBLOBs" >
+    update tour
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subname != null" >
+        subname = #{subname,jdbcType=VARCHAR},
+      </if>
+      <if test="taocan != null" >
+        taocan = #{taocan,jdbcType=VARCHAR},
+      </if>
+      <if test="during != null" >
+        during = #{during,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=REAL},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=INTEGER},
+      </if>
+      <if test="deal != null" >
+        deal = #{deal,jdbcType=INTEGER},
+      </if>
+      <if test="satisfactory != null" >
+        satisfactory = #{satisfactory,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="routeInclude != null" >
+        route_include = #{routeInclude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="routeContent != null" >
+        route_content = #{routeContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="notice != null" >
+        notice = #{notice,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.myway.poss.pojo.TourWithBLOBs" >
+    update tour
+    set product_id = #{productId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      subname = #{subname,jdbcType=VARCHAR},
+      taocan = #{taocan,jdbcType=VARCHAR},
+      during = #{during,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      picture = #{picture,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=REAL},
+      comment = #{comment,jdbcType=INTEGER},
+      deal = #{deal,jdbcType=INTEGER},
+      satisfactory = #{satisfactory,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=LONGVARCHAR},
+      route_include = #{routeInclude,jdbcType=LONGVARCHAR},
+      route_content = #{routeContent,jdbcType=LONGVARCHAR},
+      notice = #{notice,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myway.poss.pojo.Tour" >
+    update tour
+    set product_id = #{productId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      subname = #{subname,jdbcType=VARCHAR},
+      taocan = #{taocan,jdbcType=VARCHAR},
+      during = #{during,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      picture = #{picture,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=REAL},
+      comment = #{comment,jdbcType=INTEGER},
+      deal = #{deal,jdbcType=INTEGER},
+      satisfactory = #{satisfactory,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

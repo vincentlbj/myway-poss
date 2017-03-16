@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myway.poss.mapper.RestaurantMapper" >
+  <resultMap id="BaseResultMap" type="com.myway.poss.pojo.Restaurant" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="avg_consume" property="avgConsume" jdbcType="REAL" />
+    <result column="restaurant_name" property="restaurantName" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.myway.poss.pojo.Restaurant" extends="BaseResultMap" >
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    p_id, avg_consume, restaurant_name, picture, remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduction
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.myway.poss.pojo.RestaurantExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myway.poss.pojo.RestaurantExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from restaurant
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from restaurant
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myway.poss.pojo.RestaurantExample" >
+    delete from restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myway.poss.pojo.Restaurant" >
+    insert into restaurant (p_id, avg_consume, restaurant_name, 
+      picture, remark, introduction
+      )
+    values (#{pId,jdbcType=INTEGER}, #{avgConsume,jdbcType=REAL}, #{restaurantName,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{remark,jdbcType=REAL}, #{introduction,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myway.poss.pojo.Restaurant" >
+    insert into restaurant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="avgConsume != null" >
+        avg_consume,
+      </if>
+      <if test="restaurantName != null" >
+        restaurant_name,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="avgConsume != null" >
+        #{avgConsume,jdbcType=REAL},
+      </if>
+      <if test="restaurantName != null" >
+        #{restaurantName,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=REAL},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myway.poss.pojo.RestaurantExample" resultType="java.lang.Integer" >
+    select count(*) from restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update restaurant
+    <set >
+      <if test="record.pId != null" >
+        p_id = #{record.pId,jdbcType=INTEGER},
+      </if>
+      <if test="record.avgConsume != null" >
+        avg_consume = #{record.avgConsume,jdbcType=REAL},
+      </if>
+      <if test="record.restaurantName != null" >
+        restaurant_name = #{record.restaurantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=REAL},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update restaurant
+    set p_id = #{record.pId,jdbcType=INTEGER},
+      avg_consume = #{record.avgConsume,jdbcType=REAL},
+      restaurant_name = #{record.restaurantName,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=REAL},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update restaurant
+    set p_id = #{record.pId,jdbcType=INTEGER},
+      avg_consume = #{record.avgConsume,jdbcType=REAL},
+      restaurant_name = #{record.restaurantName,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myway.poss.pojo.Restaurant" >
+    update restaurant
+    <set >
+      <if test="avgConsume != null" >
+        avg_consume = #{avgConsume,jdbcType=REAL},
+      </if>
+      <if test="restaurantName != null" >
+        restaurant_name = #{restaurantName,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=REAL},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.myway.poss.pojo.Restaurant" >
+    update restaurant
+    set avg_consume = #{avgConsume,jdbcType=REAL},
+      restaurant_name = #{restaurantName,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=REAL},
+      introduction = #{introduction,jdbcType=LONGVARCHAR}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myway.poss.pojo.Restaurant" >
+    update restaurant
+    set avg_consume = #{avgConsume,jdbcType=REAL},
+      restaurant_name = #{restaurantName,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=REAL}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>

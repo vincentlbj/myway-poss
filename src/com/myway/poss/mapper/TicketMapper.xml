@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myway.poss.mapper.TicketMapper" >
+  <resultMap id="BaseResultMap" type="com.myway.poss.pojo.Ticket" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="open_date" property="openDate" jdbcType="VARCHAR" />
+    <result column="header_picture" property="headerPicture" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="baidu_point" property="baiduPoint" jdbcType="VARCHAR" />
+    <result column="traffic_message" property="trafficMessage" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.myway.poss.pojo.TicketWithBLOBs" extends="BaseResultMap" >
+    <result column="book_notice" property="bookNotice" jdbcType="LONGVARCHAR" />
+    <result column="spot_summary" property="spotSummary" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, address, level, open_date, header_picture, picture, baidu_point, traffic_message, 
+    price
+  </sql>
+  <sql id="Blob_Column_List" >
+    book_notice, spot_summary
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.myway.poss.pojo.TicketExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myway.poss.pojo.TicketExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ticket
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ticket
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myway.poss.pojo.TicketExample" >
+    delete from ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myway.poss.pojo.TicketWithBLOBs" >
+    insert into ticket (id, name, address, 
+      level, open_date, header_picture, 
+      picture, baidu_point, traffic_message, 
+      price, book_notice, spot_summary
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{level,jdbcType=VARCHAR}, #{openDate,jdbcType=VARCHAR}, #{headerPicture,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{baiduPoint,jdbcType=VARCHAR}, #{trafficMessage,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{bookNotice,jdbcType=LONGVARCHAR}, #{spotSummary,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myway.poss.pojo.TicketWithBLOBs" >
+    insert into ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="openDate != null" >
+        open_date,
+      </if>
+      <if test="headerPicture != null" >
+        header_picture,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="baiduPoint != null" >
+        baidu_point,
+      </if>
+      <if test="trafficMessage != null" >
+        traffic_message,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="bookNotice != null" >
+        book_notice,
+      </if>
+      <if test="spotSummary != null" >
+        spot_summary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="openDate != null" >
+        #{openDate,jdbcType=VARCHAR},
+      </if>
+      <if test="headerPicture != null" >
+        #{headerPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="baiduPoint != null" >
+        #{baiduPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficMessage != null" >
+        #{trafficMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="bookNotice != null" >
+        #{bookNotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="spotSummary != null" >
+        #{spotSummary,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myway.poss.pojo.TicketExample" resultType="java.lang.Integer" >
+    select count(*) from ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ticket
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openDate != null" >
+        open_date = #{record.openDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headerPicture != null" >
+        header_picture = #{record.headerPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baiduPoint != null" >
+        baidu_point = #{record.baiduPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trafficMessage != null" >
+        traffic_message = #{record.trafficMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bookNotice != null" >
+        book_notice = #{record.bookNotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.spotSummary != null" >
+        spot_summary = #{record.spotSummary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ticket
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      open_date = #{record.openDate,jdbcType=VARCHAR},
+      header_picture = #{record.headerPicture,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      baidu_point = #{record.baiduPoint,jdbcType=VARCHAR},
+      traffic_message = #{record.trafficMessage,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      book_notice = #{record.bookNotice,jdbcType=LONGVARCHAR},
+      spot_summary = #{record.spotSummary,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ticket
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      open_date = #{record.openDate,jdbcType=VARCHAR},
+      header_picture = #{record.headerPicture,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      baidu_point = #{record.baiduPoint,jdbcType=VARCHAR},
+      traffic_message = #{record.trafficMessage,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myway.poss.pojo.TicketWithBLOBs" >
+    update ticket
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="openDate != null" >
+        open_date = #{openDate,jdbcType=VARCHAR},
+      </if>
+      <if test="headerPicture != null" >
+        header_picture = #{headerPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="baiduPoint != null" >
+        baidu_point = #{baiduPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficMessage != null" >
+        traffic_message = #{trafficMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="bookNotice != null" >
+        book_notice = #{bookNotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="spotSummary != null" >
+        spot_summary = #{spotSummary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.myway.poss.pojo.TicketWithBLOBs" >
+    update ticket
+    set name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      open_date = #{openDate,jdbcType=VARCHAR},
+      header_picture = #{headerPicture,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      baidu_point = #{baiduPoint,jdbcType=VARCHAR},
+      traffic_message = #{trafficMessage,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      book_notice = #{bookNotice,jdbcType=LONGVARCHAR},
+      spot_summary = #{spotSummary,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myway.poss.pojo.Ticket" >
+    update ticket
+    set name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      open_date = #{openDate,jdbcType=VARCHAR},
+      header_picture = #{headerPicture,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      baidu_point = #{baiduPoint,jdbcType=VARCHAR},
+      traffic_message = #{trafficMessage,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
