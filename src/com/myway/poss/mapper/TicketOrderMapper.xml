@@ -10,6 +10,7 @@
     <result column="date" property="date" jdbcType="TIMESTAMP" />
     <result column="token" property="token" jdbcType="VARCHAR" />
     <result column="member_phone" property="memberPhone" jdbcType="VARCHAR" />
+    <result column="o_type" property="oType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, ticket_id, user_id, people, price, date, token, member_phone
+    id, ticket_id, user_id, people, price, date, token, member_phone, o_type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myway.poss.pojo.TicketOrderExample" >
     select
@@ -105,12 +106,17 @@
   <insert id="insert" parameterType="com.myway.poss.pojo.TicketOrder" >
     insert into ticket_order (id, ticket_id, user_id, 
       people, price, date, 
-      token, member_phone)
+      token, member_phone, o_type
+      )
     values (#{id,jdbcType=INTEGER}, #{ticketId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{people,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{date,jdbcType=TIMESTAMP}, 
-      #{token,jdbcType=VARCHAR}, #{memberPhone,jdbcType=VARCHAR})
+      #{token,jdbcType=VARCHAR}, #{memberPhone,jdbcType=VARCHAR}, #{oType,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.myway.poss.pojo.TicketOrder" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into ticket_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -137,6 +143,9 @@
       <if test="memberPhone != null" >
         member_phone,
       </if>
+      <if test="oType != null" >
+        o_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -162,6 +171,9 @@
       </if>
       <if test="memberPhone != null" >
         #{memberPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oType != null" >
+        #{oType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +210,9 @@
       <if test="record.memberPhone != null" >
         member_phone = #{record.memberPhone,jdbcType=VARCHAR},
       </if>
+      <if test="record.oType != null" >
+        o_type = #{record.oType,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +227,8 @@
       price = #{record.price,jdbcType=DECIMAL},
       date = #{record.date,jdbcType=TIMESTAMP},
       token = #{record.token,jdbcType=VARCHAR},
-      member_phone = #{record.memberPhone,jdbcType=VARCHAR}
+      member_phone = #{record.memberPhone,jdbcType=VARCHAR},
+      o_type = #{record.oType,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +257,9 @@
       <if test="memberPhone != null" >
         member_phone = #{memberPhone,jdbcType=VARCHAR},
       </if>
+      <if test="oType != null" >
+        o_type = #{oType,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,7 +271,8 @@
       price = #{price,jdbcType=DECIMAL},
       date = #{date,jdbcType=TIMESTAMP},
       token = #{token,jdbcType=VARCHAR},
-      member_phone = #{memberPhone,jdbcType=VARCHAR}
+      member_phone = #{memberPhone,jdbcType=VARCHAR},
+      o_type = #{oType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

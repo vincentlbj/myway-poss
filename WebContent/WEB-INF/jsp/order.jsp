@@ -59,11 +59,11 @@
               <tbody>
               	<c:forEach items="${tourOrderList}" var="tourOrder">
               		<tr>
-              			<td>${tourOrder.name }</td>
+              			<td>${tourOrder.oId }</td>
               			<td>${tourOrder.uId }</td>
               			<td>${tourOrder.pId }</td>
               			<td>${tourOrder.people }</td>
-              			<td><fmt:formatDate value="${tourPrice.oDate }"  pattern="yyyy-MM-dd"/></td>
+              			<td><fmt:formatDate value="${tourOrder.oDate }"  pattern="yyyy-MM-dd"/></td>
               			<td>${tourOrder.token }</td>
               			<td>${tourOrder.price }</td>
               		</tr>
@@ -80,8 +80,7 @@
                   <th>订单编号</th>
                   <th>酒店编号</th>
                   <th>用户编号</th>
-                  <th>人数</th>
-                  <th>天数</th>
+                  <th>房间数</th>
                   <th>订单token</th>
                   <th>联系电话</th>
                   <th>订单价格</th>
@@ -93,8 +92,7 @@
               			<td>${hotelOrder.id }</td>
               			<td>${hotelOrder.hotelId }</td>
               			<td>${hotelOrder.userId }</td>
-              			<td>${hotelOrder.people }</td>
-              			<td>${hotelOrder.day }</td>
+              			<td>${hotelOrder.room }</td>
               			<td>${hotelOrder.token }</td>
               			<td>${hotelOrder.memberPhone }</td>
               			<td>${hotelOrder.price }</td>

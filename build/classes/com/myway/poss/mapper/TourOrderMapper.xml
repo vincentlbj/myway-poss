@@ -10,6 +10,9 @@
     <result column="o_date" property="oDate" jdbcType="TIMESTAMP" />
     <result column="token" property="token" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="adult" property="adult" jdbcType="INTEGER" />
+    <result column="children" property="children" jdbcType="INTEGER" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    o_id, u_id, people, o_type, p_id, o_date, token, price
+    o_id, u_id, people, o_type, p_id, o_date, token, price, adult, children, info
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myway.poss.pojo.TourOrderExample" >
     select
@@ -105,12 +108,17 @@
   <insert id="insert" parameterType="com.myway.poss.pojo.TourOrder" >
     insert into tour_order (o_id, u_id, people, 
       o_type, p_id, o_date, 
-      token, price)
+      token, price, adult, 
+      children, info)
     values (#{oId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{people,jdbcType=INTEGER}, 
       #{oType,jdbcType=VARCHAR}, #{pId,jdbcType=INTEGER}, #{oDate,jdbcType=TIMESTAMP}, 
-      #{token,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
+      #{token,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{adult,jdbcType=INTEGER}, 
+      #{children,jdbcType=INTEGER}, #{info,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.myway.poss.pojo.TourOrder" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into tour_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="oId != null" >
@@ -137,6 +145,15 @@
       <if test="price != null" >
         price,
       </if>
+      <if test="adult != null" >
+        adult,
+      </if>
+      <if test="children != null" >
+        children,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="oId != null" >
@@ -162,6 +179,15 @@
       </if>
       <if test="price != null" >
         #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="adult != null" >
+        #{adult,jdbcType=INTEGER},
+      </if>
+      <if test="children != null" >
+        #{children,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +224,15 @@
       <if test="record.price != null" >
         price = #{record.price,jdbcType=DECIMAL},
       </if>
+      <if test="record.adult != null" >
+        adult = #{record.adult,jdbcType=INTEGER},
+      </if>
+      <if test="record.children != null" >
+        children = #{record.children,jdbcType=INTEGER},
+      </if>
+      <if test="record.info != null" >
+        info = #{record.info,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +247,10 @@
       p_id = #{record.pId,jdbcType=INTEGER},
       o_date = #{record.oDate,jdbcType=TIMESTAMP},
       token = #{record.token,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL}
+      price = #{record.price,jdbcType=DECIMAL},
+      adult = #{record.adult,jdbcType=INTEGER},
+      children = #{record.children,jdbcType=INTEGER},
+      info = #{record.info,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +279,15 @@
       <if test="price != null" >
         price = #{price,jdbcType=DECIMAL},
       </if>
+      <if test="adult != null" >
+        adult = #{adult,jdbcType=INTEGER},
+      </if>
+      <if test="children != null" >
+        children = #{children,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
     </set>
     where o_id = #{oId,jdbcType=INTEGER}
   </update>
@@ -252,7 +299,10 @@
       p_id = #{pId,jdbcType=INTEGER},
       o_date = #{oDate,jdbcType=TIMESTAMP},
       token = #{token,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL}
+      price = #{price,jdbcType=DECIMAL},
+      adult = #{adult,jdbcType=INTEGER},
+      children = #{children,jdbcType=INTEGER},
+      info = #{info,jdbcType=VARCHAR}
     where o_id = #{oId,jdbcType=INTEGER}
   </update>
 </mapper>

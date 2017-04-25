@@ -605,6 +605,196 @@ public class TourOrderExample {
             addCriterion("price not between", value1, value2, "price");
             return (Criteria) this;
         }
+
+        public Criteria andAdultIsNull() {
+            addCriterion("adult is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultIsNotNull() {
+            addCriterion("adult is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultEqualTo(Integer value) {
+            addCriterion("adult =", value, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultNotEqualTo(Integer value) {
+            addCriterion("adult <>", value, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultGreaterThan(Integer value) {
+            addCriterion("adult >", value, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultGreaterThanOrEqualTo(Integer value) {
+            addCriterion("adult >=", value, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultLessThan(Integer value) {
+            addCriterion("adult <", value, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultLessThanOrEqualTo(Integer value) {
+            addCriterion("adult <=", value, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultIn(List<Integer> values) {
+            addCriterion("adult in", values, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultNotIn(List<Integer> values) {
+            addCriterion("adult not in", values, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultBetween(Integer value1, Integer value2) {
+            addCriterion("adult between", value1, value2, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdultNotBetween(Integer value1, Integer value2) {
+            addCriterion("adult not between", value1, value2, "adult");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenIsNull() {
+            addCriterion("children is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenIsNotNull() {
+            addCriterion("children is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenEqualTo(Integer value) {
+            addCriterion("children =", value, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenNotEqualTo(Integer value) {
+            addCriterion("children <>", value, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenGreaterThan(Integer value) {
+            addCriterion("children >", value, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenGreaterThanOrEqualTo(Integer value) {
+            addCriterion("children >=", value, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenLessThan(Integer value) {
+            addCriterion("children <", value, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenLessThanOrEqualTo(Integer value) {
+            addCriterion("children <=", value, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenIn(List<Integer> values) {
+            addCriterion("children in", values, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenNotIn(List<Integer> values) {
+            addCriterion("children not in", values, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenBetween(Integer value1, Integer value2) {
+            addCriterion("children between", value1, value2, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildrenNotBetween(Integer value1, Integer value2) {
+            addCriterion("children not between", value1, value2, "children");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoIsNull() {
+            addCriterion("info is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoIsNotNull() {
+            addCriterion("info is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoEqualTo(String value) {
+            addCriterion("info =", value, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoNotEqualTo(String value) {
+            addCriterion("info <>", value, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoGreaterThan(String value) {
+            addCriterion("info >", value, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoGreaterThanOrEqualTo(String value) {
+            addCriterion("info >=", value, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoLessThan(String value) {
+            addCriterion("info <", value, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoLessThanOrEqualTo(String value) {
+            addCriterion("info <=", value, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoLike(String value) {
+            addCriterion("info like", value, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoNotLike(String value) {
+            addCriterion("info not like", value, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoIn(List<String> values) {
+            addCriterion("info in", values, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoNotIn(List<String> values) {
+            addCriterion("info not in", values, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoBetween(String value1, String value2) {
+            addCriterion("info between", value1, value2, "info");
+            return (Criteria) this;
+        }
+
+        public Criteria andInfoNotBetween(String value1, String value2) {
+            addCriterion("info not between", value1, value2, "info");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

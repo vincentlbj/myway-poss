@@ -1,6 +1,7 @@
 package com.myway.poss.pojo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class HotelOrder {
     private Integer id;
@@ -9,15 +10,21 @@ public class HotelOrder {
 
     private Integer userId;
 
-    private Integer people;
-
-    private Integer day;
+    private Integer room;
 
     private String token;
 
     private String memberPhone;
 
     private BigDecimal price;
+
+    private String oType;
+
+    private Date date;
+
+    private Date oDate;
+
+    private String info;
 
     public Integer getId() {
         return id;
@@ -43,20 +50,12 @@ public class HotelOrder {
         this.userId = userId;
     }
 
-    public Integer getPeople() {
-        return people;
+    public Integer getRoom() {
+        return room;
     }
 
-    public void setPeople(Integer people) {
-        this.people = people;
-    }
-
-    public Integer getDay() {
-        return day;
-    }
-
-    public void setDay(Integer day) {
-        this.day = day;
+    public void setRoom(Integer room) {
+        this.room = room;
     }
 
     public String getToken() {
@@ -81,5 +80,37 @@ public class HotelOrder {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getoType() {
+        return oType;
+    }
+
+    public void setoType(String oType) {
+        this.oType = oType == null ? null : oType.trim();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getoDate() {
+        return oDate;
+    }
+
+    public void setoDate(Date oDate) {
+        this.oDate = oDate;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info == null ? null : info.trim();
     }
 }

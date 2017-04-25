@@ -20,6 +20,8 @@ public class TicketOrder {
 
     private String memberPhone;
 
+    private String oType;
+
     public Integer getId() {
         return id;
     }
@@ -82,5 +84,13 @@ public class TicketOrder {
 
     public void setMemberPhone(String memberPhone) {
         this.memberPhone = memberPhone == null ? null : memberPhone.trim();
+    }
+
+    public String getoType() {
+        return oType;
+    }
+
+    public void setoType(String oType) {
+        this.oType = oType == null ? null : oType.trim();
     }
 }

@@ -605,6 +605,76 @@ public class TicketOrderExample {
             addCriterion("member_phone not between", value1, value2, "memberPhone");
             return (Criteria) this;
         }
+
+        public Criteria andOTypeIsNull() {
+            addCriterion("o_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeIsNotNull() {
+            addCriterion("o_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeEqualTo(String value) {
+            addCriterion("o_type =", value, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeNotEqualTo(String value) {
+            addCriterion("o_type <>", value, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeGreaterThan(String value) {
+            addCriterion("o_type >", value, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("o_type >=", value, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeLessThan(String value) {
+            addCriterion("o_type <", value, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeLessThanOrEqualTo(String value) {
+            addCriterion("o_type <=", value, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeLike(String value) {
+            addCriterion("o_type like", value, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeNotLike(String value) {
+            addCriterion("o_type not like", value, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeIn(List<String> values) {
+            addCriterion("o_type in", values, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeNotIn(List<String> values) {
+            addCriterion("o_type not in", values, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeBetween(String value1, String value2) {
+            addCriterion("o_type between", value1, value2, "oType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOTypeNotBetween(String value1, String value2) {
+            addCriterion("o_type not between", value1, value2, "oType");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

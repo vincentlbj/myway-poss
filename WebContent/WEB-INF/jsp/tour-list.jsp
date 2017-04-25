@@ -55,12 +55,12 @@
               <tbody>
               	<c:forEach items="${tourList}" var="tour">
               		<tr>
-              			<td>${tour.name }</td>
-              			<td>
+              			<td style="font-size:17px">${tour.name }</td>
+              			<td style="font-size:17px">
               				<div class="btn-group" role="group" aria-label="...">
-  								<button type="button" onclick="location.href='<%=request.getContextPath()%>/tour/edit/${tour.id }'" class="btn btn-info">编辑</button>
-  								<button type="button" onclick="location.href='<%=request.getContextPath()%>/tour/price/${tour.id }'" class="btn btn-success">查看开团日期</button>
-  								<button type="button" onclick="deleteItem(${tour.id});" class="btn btn-danger">删除</button>
+  								<button type="button" onclick="location.href='<%=request.getContextPath()%>/tour/edit/${tour.id }'" class="btn btn-info" style="font-size:17px">编辑</button>
+  								<button type="button" onclick="location.href='<%=request.getContextPath()%>/tour/price/${tour.id }'" class="btn btn-success" style="font-size:17px">查看开团日期</button>
+  								<button type="button" onclick="deleteItem(${tour.id});" class="btn btn-danger" style="font-size:17px">删除</button>
 							</div>
 						</td>
               		</tr>

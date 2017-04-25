@@ -20,6 +20,12 @@ public class TourOrder {
 
     private BigDecimal price;
 
+    private Integer adult;
+
+    private Integer children;
+
+    private String info;
+
     public Integer getoId() {
         return oId;
     }
@@ -82,5 +88,29 @@ public class TourOrder {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Integer getAdult() {
+        return adult;
+    }
+
+    public void setAdult(Integer adult) {
+        this.adult = adult;
+    }
+
+    public Integer getChildren() {
+        return children;
+    }
+
+    public void setChildren(Integer children) {
+        this.children = children;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info == null ? null : info.trim();
     }
 }

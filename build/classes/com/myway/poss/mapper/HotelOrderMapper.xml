@@ -5,11 +5,14 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="hotel_id" property="hotelId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="people" property="people" jdbcType="INTEGER" />
-    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="room" property="room" jdbcType="INTEGER" />
     <result column="token" property="token" jdbcType="VARCHAR" />
     <result column="member_phone" property="memberPhone" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="o_type" property="oType" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="o_date" property="oDate" jdbcType="TIMESTAMP" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, hotel_id, user_id, people, day, token, member_phone, price
+    id, hotel_id, user_id, room, token, member_phone, price, o_type, date, o_date, info
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myway.poss.pojo.HotelOrderExample" >
     select
@@ -104,13 +107,18 @@
   </delete>
   <insert id="insert" parameterType="com.myway.poss.pojo.HotelOrder" >
     insert into hotel_order (id, hotel_id, user_id, 
-      people, day, token, 
-      member_phone, price)
+      room, token, member_phone, 
+      price, o_type, date, 
+      o_date, info)
     values (#{id,jdbcType=INTEGER}, #{hotelId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{people,jdbcType=INTEGER}, #{day,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}, 
-      #{memberPhone,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
+      #{room,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}, #{memberPhone,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{oType,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{oDate,jdbcType=TIMESTAMP}, #{info,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.myway.poss.pojo.HotelOrder" >
+  	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
     insert into hotel_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -122,11 +130,8 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="people != null" >
-        people,
-      </if>
-      <if test="day != null" >
-        day,
+      <if test="room != null" >
+        room,
       </if>
       <if test="token != null" >
         token,
@@ -136,6 +141,18 @@
       </if>
       <if test="price != null" >
         price,
+      </if>
+      <if test="oType != null" >
+        o_type,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="oDate != null" >
+        o_date,
+      </if>
+      <if test="info != null" >
+        info,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -148,11 +165,8 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="people != null" >
-        #{people,jdbcType=INTEGER},
-      </if>
-      <if test="day != null" >
-        #{day,jdbcType=INTEGER},
+      <if test="room != null" >
+        #{room,jdbcType=INTEGER},
       </if>
       <if test="token != null" >
         #{token,jdbcType=VARCHAR},
@@ -162,6 +176,18 @@
       </if>
       <if test="price != null" >
         #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="oType != null" >
+        #{oType,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oDate != null" >
+        #{oDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -183,11 +209,8 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.people != null" >
-        people = #{record.people,jdbcType=INTEGER},
-      </if>
-      <if test="record.day != null" >
-        day = #{record.day,jdbcType=INTEGER},
+      <if test="record.room != null" >
+        room = #{record.room,jdbcType=INTEGER},
       </if>
       <if test="record.token != null" >
         token = #{record.token,jdbcType=VARCHAR},
@@ -197,6 +220,18 @@
       </if>
       <if test="record.price != null" >
         price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.oType != null" >
+        o_type = #{record.oType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.oDate != null" >
+        o_date = #{record.oDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.info != null" >
+        info = #{record.info,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -208,11 +243,14 @@
     set id = #{record.id,jdbcType=INTEGER},
       hotel_id = #{record.hotelId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      people = #{record.people,jdbcType=INTEGER},
-      day = #{record.day,jdbcType=INTEGER},
+      room = #{record.room,jdbcType=INTEGER},
       token = #{record.token,jdbcType=VARCHAR},
       member_phone = #{record.memberPhone,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DECIMAL}
+      price = #{record.price,jdbcType=DECIMAL},
+      o_type = #{record.oType,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      o_date = #{record.oDate,jdbcType=TIMESTAMP},
+      info = #{record.info,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -226,11 +264,8 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="people != null" >
-        people = #{people,jdbcType=INTEGER},
-      </if>
-      <if test="day != null" >
-        day = #{day,jdbcType=INTEGER},
+      <if test="room != null" >
+        room = #{room,jdbcType=INTEGER},
       </if>
       <if test="token != null" >
         token = #{token,jdbcType=VARCHAR},
@@ -241,6 +276,18 @@
       <if test="price != null" >
         price = #{price,jdbcType=DECIMAL},
       </if>
+      <if test="oType != null" >
+        o_type = #{oType,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oDate != null" >
+        o_date = #{oDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -248,11 +295,14 @@
     update hotel_order
     set hotel_id = #{hotelId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
-      people = #{people,jdbcType=INTEGER},
-      day = #{day,jdbcType=INTEGER},
+      room = #{room,jdbcType=INTEGER},
       token = #{token,jdbcType=VARCHAR},
       member_phone = #{memberPhone,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL}
+      price = #{price,jdbcType=DECIMAL},
+      o_type = #{oType,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      o_date = #{oDate,jdbcType=TIMESTAMP},
+      info = #{info,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
